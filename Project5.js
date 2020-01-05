@@ -24,7 +24,7 @@ function checkCashRegister(price, cash, cid) { // price = 3.26, cash = 100
         console.log(output);
         return output;
     }
-    registerTotal-=changeTotal;
+    
     // Else if less change is required OR an equal ammount of change, execute the following code:
 
     for(let i=0; i<CURRENCY_ARR.length; i++){
@@ -42,19 +42,21 @@ function checkCashRegister(price, cash, cid) { // price = 3.26, cash = 100
                 changeTotal = Math.round(changeTotal*100) / 100;
                 changeTotal-=reversedCid[i][1];                 // Subtract the value of bills/coins just taken from the slot from the total ammount of change due to the client.  
                                                                 // i increments by 1. New ratio is calculated based on the updated "changeTotal"
-
+                registerTotal-=reversedCid[i][1];    
 
             }else{                                              // if cashAmmountRed is less than what is available in slot, i.e. more bills/coins in slot than what we need to take, we simply take the ammount needed.
                 reversedCid[i][1]=cashAmmountReq;               
                 changeArr.push(reversedCid[i]);
-                changeTotal = Math.round(changeTotal*100) / 100;
-                changeTotal-=cashAmmountReq;                    // Subtract the value of bills/coins just taken from the slot from the total ammount of change due to the client.
                 
+                changeTotal-=cashAmmountReq;                    // Subtract the value of bills/coins just taken from the slot from the total ammount of change due to the client.
+                changeTotal = Math.round(changeTotal*100) / 100;
+                registerTotal-=cashAmmountReq;
             }
         }         
         // *********************************************************************************
 
     }
+    
 
     console.log("changeTotalAfter = " + changeTotal);
     console.log("registerTotalAfter = " + registerTotal);
@@ -91,12 +93,14 @@ function checkCashRegister(price, cash, cid) { // price = 3.26, cash = 100
   // ["ONE HUNDRED", 100]]
   
 
-  checkCashRegister(19.5, 20, [["PENNY", 1.01], ["NICKEL", 2.05], ["DIME", 3.1], ["QUARTER", 4.25], ["ONE", 90], ["FIVE", 55], ["TEN", 20], ["TWENTY", 60], ["ONE HUNDRED", 100]])
+//   checkCashRegister(19.5, 20, [["PENNY", 1.01], ["NICKEL", 2.05], ["DIME", 3.1], ["QUARTER", 4.25], ["ONE", 90], ["FIVE", 55], ["TEN", 20], ["TWENTY", 60], ["ONE HUNDRED", 100]])
   
-  checkCashRegister(3.26, 100,  [["PENNY", 1.01], ["NICKEL", 2.05], ["DIME", 3.1], ["QUARTER", 4.25], ["ONE", 90], ["FIVE", 55], ["TEN", 20], ["TWENTY", 60], ["ONE HUNDRED", 100]]) 
+//   checkCashRegister(3.26, 100,  [["PENNY", 1.01], ["NICKEL", 2.05], ["DIME", 3.1], ["QUARTER", 4.25], ["ONE", 90], ["FIVE", 55], ["TEN", 20], ["TWENTY", 60], ["ONE HUNDRED", 100]]) 
 
-  checkCashRegister(19.5, 20, [["PENNY", 0.01], ["NICKEL", 0], ["DIME", 0], ["QUARTER", 0], ["ONE", 0], ["FIVE", 0], ["TEN", 0], ["TWENTY", 0], ["ONE HUNDRED", 0]])
+//   checkCashRegister(19.5, 20, [["PENNY", 0.01], ["NICKEL", 0], ["DIME", 0], ["QUARTER", 0], ["ONE", 0], ["FIVE", 0], ["TEN", 0], ["TWENTY", 0], ["ONE HUNDRED", 0]])
 
   checkCashRegister(19.5, 20, [["PENNY", 0.01], ["NICKEL", 0], ["DIME", 0], ["QUARTER", 0], ["ONE", 1], ["FIVE", 0], ["TEN", 0], ["TWENTY", 0], ["ONE HUNDRED", 0]])
 
-  checkCashRegister(19.5, 20, [["PENNY", 0.5], ["NICKEL", 0], ["DIME", 0], ["QUARTER", 0], ["ONE", 0], ["FIVE", 0], ["TEN", 0], ["TWENTY", 0], ["ONE HUNDRED", 0]])
+//   checkCashRegister(19.5, 20, [["PENNY", 0.5], ["NICKEL", 0], ["DIME", 0], ["QUARTER", 0], ["ONE", 0], ["FIVE", 0], ["TEN", 0], ["TWENTY", 0], ["ONE HUNDRED", 0]])
+
+//   checkCashRegister(3.26, 100, [["PENNY", 1.01], ["NICKEL", 2.05], ["DIME", 3.1], ["QUARTER", 4.25], ["ONE", 90], ["FIVE", 55], ["TEN", 20], ["TWENTY", 60], ["ONE HUNDRED", 100]])
